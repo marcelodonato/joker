@@ -20,18 +20,16 @@ class HomePresenter(
     override fun onSuccess(response: List<String>) {
         val start = 40
         val end = 190
-        val dif = (end - start ) / response.size
+        val dif = (end - start) / response.size
 
-        val categories = response.mapIndexed{ index, s ->
+        val categories = response.mapIndexed { index, s ->
             val hsv = floatArrayOf(
                 start + (dif * index).toFloat(),
                 100.0f,
                 100.0f,
             )
 
-
-
-            Category(s, Color.HSVToColor(hsv).toLong() )
+            Category(s, Color.HSVToColor(hsv).toLong())
         }
         view.showCategories(categories)
     }
