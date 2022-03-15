@@ -8,8 +8,7 @@ import retrofit2.Response
 class CategoryRemoteDataSource {
 
     fun findAllCategories(callback: ListCategoryCallback) {
-        HTTPClient.retrofit()
-            .create(ChuckNorrisAPI::class.java)
+        HTTPClient.retrofit().create(ChuckNorrisAPI::class.java)
             .findAllCategories()
             .enqueue(object : Callback<List<String>> {
                 override fun onResponse(

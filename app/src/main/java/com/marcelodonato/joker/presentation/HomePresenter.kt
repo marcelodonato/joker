@@ -1,6 +1,7 @@
 package com.marcelodonato.joker.presentation
 
 
+import android.graphics.Color
 import com.marcelodonato.joker.data.CategoryRemoteDataSource
 import com.marcelodonato.joker.data.ListCategoryCallback
 import com.marcelodonato.joker.model.Category
@@ -17,7 +18,21 @@ class HomePresenter(
     }
 
     override fun onSuccess(response: List<String>) {
-        val categories = response.map { Category(it, 0xFFFF0000) }
+        val start = 40
+        val end = 190
+        val dif = (end - start ) / response.size
+
+        val categories = response.mapIndexed{ index, s ->
+            val hsv = floatArrayOf(
+                start + (dif * index).toFloat(),
+                100.0f,
+                100.0f,
+            )
+
+
+
+            Category(s, Color.HSVToColor(hsv).toLong() )
+        }
         view.showCategories(categories)
     }
 
