@@ -19,6 +19,7 @@ object HTTPClient {
             .build()
 
     }
+
     fun retrofit() = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())

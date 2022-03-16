@@ -6,19 +6,18 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.RuntimeException
 
-class JokeRemoteDataSource {
+class JokeDayRemoteDataSource {
 
-    fun findBy(categoryName: String, callback: JokeCallback) {
+    fun findRandom(callback: JokeCallback) {
         HTTPClient.retrofit()
             .create(ChuckNorrisAPI::class.java)
-            .findRandom(categoryName)
+            .findRandom()
             .enqueue(object : Callback<Joke> {
                 override fun onResponse(call: Call<Joke>, response: Response<Joke>) {
                     if (response.isSuccessful) {
                         val joke = response.body()
                         callback.onSuccess(joke ?: throw RuntimeException("Piada não encontrada"))
                     } else {
-
                         val error = response.errorBody()?.string()
                         callback.onError(error ?: "Erro desconhecido")
                     }
@@ -30,8 +29,6 @@ class JokeRemoteDataSource {
                     callback.onError(t.message ?: "Erro interno")
                     callback.onComplete()
                 }
-
             })
     }
-
 }
